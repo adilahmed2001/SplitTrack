@@ -1,24 +1,54 @@
-# Compiled class file
-*.class
-
-# Log file
+# === PYTHON / FLASK BACKEND ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
 *.log
 
-# BlueJ files
-*.ctxt
+# Virtual environments
+venv/
+.env
+.env.*
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# SQLite database
+*.sqlite3
+*.db
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
+# Flask instance folder (if used)
+instance/
+
+# Pytest / Coverage
+.coverage
+htmlcov/
+.cache/
+.pytest_cache/
+
+# Migrations (if using Flask-Migrate/Alembic)
+migrations/
+
+# === FRONTEND / REACT ===
+frontend/node_modules/
+frontend/build/
+frontend/.env
+
+# === OS / EDITOR FILES ===
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# VS Code settings (optional)
+.vscode/
+
+# === GENERAL LOGS AND TEMP FILES ===
+*.log
+*.pid
+*.tgz
+*.gz
 *.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+*.tar
+*.log.*
+*.tmp

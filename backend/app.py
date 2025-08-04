@@ -15,14 +15,13 @@ def create_app():
     migrate.init_app(app, db)
     jwt.init_app(app)
 
-    # Import and register blueprints
     from routes.auth import auth_bp
-    #from routes.group import group_bp
-    #from routes.expense import expense_bp
+    from routes.group import group_bp
+    from routes.expense import expense_bp
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
-    #app.register_blueprint(group_bp, url_prefix="/api/groups")
-    #app.register_blueprint(expense_bp, url_prefix="/api/expenses")
+    app.register_blueprint(group_bp, url_prefix="/api/groups")
+    app.register_blueprint(expense_bp, url_prefix="/api/expenses")
 
     return app
 

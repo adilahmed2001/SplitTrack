@@ -3,12 +3,14 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from config import DevelopmentConfig
 from models import db
+from flask_cors import CORS
 
 migrate = Migrate()
 jwt = JWTManager()
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
     app.config.from_object(DevelopmentConfig)
 
     db.init_app(app)

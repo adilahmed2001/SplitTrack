@@ -70,14 +70,15 @@ def get_group_details(group_id):
         return jsonify({"msg":"Group not found"}), 404
     
     creator = User.query.get(group.creator_id)
+    
     if not creator:
         return jsonify({"msg":"Group creator not found"}), 404
     
     member_links = GroupMember.query.filter_by(group_id = group.id).all()
     members = [User.query.get(link.user_id) for link in member_links]
 
-    if sender_id not in members:
-        return jsonify({"msg": "Group not found"}), 404
+    if sender_id not in [link.user_id for link in member_links]:
+        return jsonify({"msg": "Group not found"}), 400
 
     return jsonify({
         "id": group.id,

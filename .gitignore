@@ -52,3 +52,4 @@ Thumbs.db
 *.tar
 *.log.*
 *.tmp
+*.env

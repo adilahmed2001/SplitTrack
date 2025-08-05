@@ -40,9 +40,7 @@ def add_member(group_id):
     if not group:
         return jsonify({"msg": "Group not found"}), 404
 
-    group_creator_id = Group.query.filter_by(id=group_id).first().creator_id
-
-    if group_creator_id != sender_id:
+    if group.creator_id != sender_id:
         return jsonify({"msg": "UNA"}), 400
 
     user = User.query.filter_by(email=user_email).first()
@@ -52,7 +50,7 @@ def add_member(group_id):
     existing = GroupMember.query.filter_by(group_id=group_id, user_id=user.id).first()
     if existing:
         return jsonify({"msg": "User is already a member"}), 400
-
+    
     new_member = GroupMember(group_id=group_id, user_id=user.id)
     db.session.add(new_member)
     db.session.commit()

@@ -52,7 +52,6 @@ def create_expense():
 def get_expenses_owed_to():
     user_id = int(get_jwt_identity())
 
-    # Find expenses that I paid for
     expenses_paid_by_user = Expense.query.filter_by(paid_by_id=user_id).all()
 
     individual_owed = []
@@ -63,11 +62,15 @@ def get_expenses_owed_to():
             if share.user_id == user_id:
                 continue
 
+            owed_user = User.query.get(share.user_id)
+
             data = {
                 "expense_id": expense.id,
                 "description": expense.description,
                 "amount_owed": share.amount_owed,
-                "owed_by_user": share.user_id,  # who owes me
+                "owed_by_user": share.user_id,
+                "owed_by_name": owed_user.name,
+                "owed_by_email": owed_user.email,
             }
 
             if expense.expense_type == 'individual':
@@ -86,7 +89,6 @@ def get_expenses_owed_to():
 def get_expenses_owed_by():
     user_id = int(get_jwt_identity())
 
-    # Find shares where I am a participant but NOT the payer
     shares = (
         db.session.query(ExpenseShare)
         .join(Expense, ExpenseShare.expense_id == Expense.id)
@@ -99,11 +101,15 @@ def get_expenses_owed_by():
 
     for share in shares:
         expense = share.expense
+        paid_user = User.query.get(expense.paid_by_id)
+
         data = {
             "expense_id": expense.id,
             "description": expense.description,
             "amount_owed_by_me": share.amount_owed,
-            "paid_by": expense.paid_by_id,  # who I owe to
+            "paid_by": expense.paid_by_id,
+            "paid_by_name": paid_user.name,
+            "paid_by_email": paid_user.email,
         }
 
         if expense.expense_type == 'individual':

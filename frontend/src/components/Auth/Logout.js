@@ -12,7 +12,15 @@ function Logout() {
   };
 
   return (
-    <button onClick={handleLogout}>
+    <button onClick={handleLogout} style={{
+      padding: '10px 20px',
+      backgroundColor: '#dc3545',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      fontSize: '1rem'
+    }}>
       Logout
     </button>
   );

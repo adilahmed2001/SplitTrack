@@ -10,9 +10,6 @@ function Navbar() {
           SplitTrack
         </Typography>
         <Button color="inherit" component={Link} to="/dashboard">Dashboard</Button>
-        <Button color="inherit" component={Link} to="/groups/create">Create Group</Button>
-        <Button color="inherit" component={Link} to="/expenses/create">Create Expense</Button>
-        <Button color="inherit" component={Link} to="/expenses/settle">Settle Expense</Button>
         <Logout />
       </Toolbar>
     </AppBar>

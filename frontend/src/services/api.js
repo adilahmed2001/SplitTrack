@@ -28,3 +28,5 @@ export const createExpense = (data) => API.post('/expenses/', data);
 export const getExpensesOwedTo = () => API.get('/expenses/owed_to');
 export const getExpensesOwedBy = () => API.get('/expenses/owed_by');
 export const settleExpense = (data) => API.post('/expenses/settle', data);
+export const getGroupTransactions = (groupId) => API.get(`/expenses/${groupId}/details`);
+export const getBalance = () => API.get('/expenses/balance');

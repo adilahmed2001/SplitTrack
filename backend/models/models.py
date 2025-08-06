@@ -46,8 +46,19 @@ class Expense(db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    is_settled = db.Column(db.Boolean, default=False)
+    settled_at = db.Column(db.DateTime, nullable=True)
+
     paid_by = db.relationship('User', backref='expenses_paid')
     shares = db.relationship('ExpenseShare', backref='expense', cascade='all, delete-orphan')
+
+    def update_settlement_status(self):
+        if all(share.is_settled for share in self.shares):
+            self.is_settled = True
+            self.settled_at = datetime.utcnow()
+        else:
+            self.is_settled = False
+            self.settled_at = None
 
 class ExpenseShare(db.Model):
     __tablename__ = 'expense_shares'

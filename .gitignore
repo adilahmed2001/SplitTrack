@@ -41,6 +41,8 @@ frontend/node_modules/
 frontend/build/
 frontend/.env
 
+backend/.env
+
 # React extra
 frontend/coverage/
 frontend/npm-debug.log*

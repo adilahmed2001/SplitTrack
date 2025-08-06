@@ -337,7 +337,6 @@ def settle_expense():
 def get_settled_expense_history():
     user_id = int(get_jwt_identity())
 
-    # Query for settled shares of the current user, sorted by settlement date (newer to older)
     settled_shares = (
         ExpenseShare.query
         .filter_by(user_id=user_id, is_settled=True)

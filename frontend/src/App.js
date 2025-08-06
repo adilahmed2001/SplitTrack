@@ -8,6 +8,7 @@ import CreateExpense from './components/Expenses/CreateExpense';
 import SettleExpense from './components/Expenses/SettleExpense';
 import Navbar from './components/Layout/Navbar';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
+import SettlementHistoryPage from './components/SettlementHistoryPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/groups/:groupId" element={<ProtectedRoute><GroupDetails /></ProtectedRoute>} />
         <Route path="/expenses/create" element={<ProtectedRoute><CreateExpense /></ProtectedRoute>} />
         <Route path="/expenses/settle" element={<ProtectedRoute><SettleExpense /></ProtectedRoute>} />
+        <Route path="/settlement-history" element={<ProtectedRoute><SettlementHistoryPage /></ProtectedRoute>} />
       </Routes>
     </Router>
   );

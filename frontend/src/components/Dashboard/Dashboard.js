@@ -398,25 +398,34 @@ function Dashboard() {
         &times;
       </button>
       <h3 style={{ marginBottom: '18px', color: '#007bff' }}>Create Expense</h3>
-      <p style={{ fontWeight: 'bold', marginBottom: '12px' }}>Payer: <span style={{ color: '#20c997' }}>{localStorage.getItem('email')}</span></p>
-      <div style={{ marginBottom: '16px' }}>
-        <label style={{ fontWeight: 'bold', marginRight: '8px' }}>Type of Expense:</label>
-        <select value={expenseType} onChange={(e) => setExpenseType(e.target.value)} style={{ padding: '8px', borderRadius: '6px', border: '1px solid #ccc', minWidth: 120 }}>
-          <option value="">Select</option>
-          <option value="individual">Individual</option>
-          <option value="group">Group</option>
-        </select>
-      </div>
-
-      <div style={{ marginBottom: '16px' }}>
-        <label style={{ fontWeight: 'bold', marginRight: '8px' }}>Description:</label>
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Enter description"
-          style={{ padding: '8px', borderRadius: '6px', border: '1px solid #ccc', width: '70%' }}
-        />
+      {(() => {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+            <label style={{ fontWeight: 'bold', fontSize: '1.1rem', minWidth: 120 }}>Payer:</label>
+            <span style={{ color: '#6c3cff', fontWeight: 600, marginLeft: 8 }}>{user.email}</span>
+            <span style={{ color: '#009688', fontWeight: 600, marginLeft: 8 }}>{user.name && `(${user.name})`}</span>
+          </div>
+        );
+      })()}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18, alignItems: 'flex-start', marginBottom: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', width: 500 }}>
+          <label style={{ fontWeight: 'bold', minWidth: 120 }}>Type of Expense:</label>
+          <select value={expenseType} onChange={(e) => setExpenseType(e.target.value)} style={{ padding: '8px', borderRadius: '6px', border: '1px solid #ccc', minWidth: 180, marginLeft: 8 }}>
+            <option value="">Select</option>
+            <option value="individual">Individual</option>
+            <option value="group">Group</option>
+          </select>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-start', width: 500 }}>
+          <label style={{ fontWeight: 'bold', minWidth: 120, marginTop: 8 }}>Description:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter description"
+            style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ccc', width: '320px', height: '70px', resize: 'vertical', fontSize: '1rem', marginLeft: 8 }}
+          />
+        </div>
       </div>
 
       {expenseType === 'individual' && (

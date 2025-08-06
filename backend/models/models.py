@@ -4,7 +4,7 @@ from datetime import datetime
 from models import db
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'users_fairsplit'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), nullable=False)
@@ -18,32 +18,32 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
 class Group(db.Model):
-    __tablename__ = 'groups'
-    
+    __tablename__ = 'groups_fairsplit'
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    creator_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    creator_id = db.Column(db.Integer, db.ForeignKey('users_fairsplit.id'), nullable=False)
 
     def __repr__(self):
         return f"<Group {self.name}>"
 
 class GroupMember(db.Model):
-    __tablename__ = 'group_members'
+    __tablename__ = 'group_members_fairsplit'
 
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False, primary_key =True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, primary_key=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups_fairsplit.id'), nullable=False, primary_key =True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users_fairsplit.id'), nullable=False, primary_key=True)
 
     user = db.relationship('User', backref='group_memberships')
     group = db.relationship('Group', backref='members')
 
 class Expense(db.Model):
-    __tablename__ = 'expenses'
+    __tablename__ = 'expenses_fairsplit'
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255), nullable=False)
     amount = db.Column(db.Float, nullable=False)
-    paid_by_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    paid_by_id = db.Column(db.Integer, db.ForeignKey('users_fairsplit.id'), nullable=False)
     expense_type = db.Column(db.String(20), nullable=False)  
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups_fairsplit.id'), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     is_settled = db.Column(db.Boolean, default=False)
@@ -61,10 +61,10 @@ class Expense(db.Model):
             self.settled_at = None
 
 class ExpenseShare(db.Model):
-    __tablename__ = 'expense_shares'
+    __tablename__ = 'expense_shares_fairsplit'
     id = db.Column(db.Integer, primary_key=True)
-    expense_id = db.Column(db.Integer, db.ForeignKey('expenses.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    expense_id = db.Column(db.Integer, db.ForeignKey('expenses_fairsplit.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users_fairsplit.id'), nullable=False)
     amount_owed = db.Column(db.Float, nullable=False)
     
     is_settled = db.Column(db.Boolean, default=False)

@@ -13,17 +13,14 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-// Authentication APIs
 export const login = (data) => API.post('/auth/login', data);
 export const signup = (data) => API.post('/auth/signup', data);
 
-// Group APIs
 export const createGroup = (data) => API.post('/groups/create', data);
 export const getUserGroups = () => API.get('/groups/user_groups');
 export const getGroupDetails = (groupId) => API.get(`/groups/${groupId}`);
 export const addMember = (groupId, data) => API.post(`/groups/${groupId}/add_member`, data);
 
-// Expense APIs
 export const createExpense = (data) => API.post('/expenses/', data);
 export const getExpensesOwedTo = () => API.get('/expenses/owed_to');
 export const getExpensesOwedBy = () => API.get('/expenses/owed_by');

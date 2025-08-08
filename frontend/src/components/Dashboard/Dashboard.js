@@ -279,9 +279,20 @@ function Dashboard() {
       await createGroup({ name: newGroupName });
       setShowCreateGroupPopup(false);
       setNewGroupName('');
-      // Refresh groups list
+      // Refresh groups list with full group details
       const groupsResponse = await getUserGroups();
-      setGroups(groupsResponse.data.group_ids);
+      const groupIds = groupsResponse.data.group_ids;
+      // Fetch full details for each group
+      const groupDetailsPromises = groupIds.map(async (groupId) => {
+        try {
+          const details = await getGroupDetails(groupId);
+          return details.data;
+        } catch {
+          return null;
+        }
+      });
+      const groupDetails = (await Promise.all(groupDetailsPromises)).filter(Boolean);
+      setGroups(groupDetails);
     } catch (error) {
       alert('Failed to create group');
     }
